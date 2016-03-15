@@ -15,9 +15,12 @@ import java.util.*;
 import java.lang.*;
 import java.io.*;
 
-/* Name of the coinlass has to be "Main" only if the coinlass is public. */
+/* Name of the class has to be "Main" only if the class is public. */
 class Ideone
 {
+	// instantiate the solution map
+	public static Map<Integer, Integer> solutions = new HashMap<Integer, Integer>();
+	
 	public static void main (String[] args) throws java.lang.Exception
 	{
 		// initialize a buffer
@@ -25,10 +28,13 @@ class Ideone
 		// initialize storage for a line of text
 		String line;
 
+		
+		int coin;
 		// while I'm getting input lines, iterate over them
 		while ((line=reader.readLine()) != null) {
 			// get the integer value of the line, and save it as a coin
-			int coin = Integer.parseInt(line);
+			coin = Integer.parseInt(line);
+
 			// optimize the coin, and print the new total
 			System.out.println(optimize(coin));
 		}
@@ -39,43 +45,17 @@ class Ideone
 		// if it's not at least 12, return immediately
 		if (coin < 12) return coin;
 
-		// otherwise exchange it
-		int[] newCoins = exchange(coin);
-
-		// for each new coin
-		for ( int i=0; i < newCoins.length; i++ ){
-			// label this coin
-			int thisCoin = newCoins[i];
-			// if this coin is at least 12
-			if (thisCoin >= 12) {
-			// optimize it
-				thisCoin = optimize(thisCoin);
-			} 
-			// now check if this coin is better than what we had
-			// if it is, use it
-			newCoins[i] = Math.max(newCoins[i], thisCoin); 
+		// check if we already know this value, if we don't,
+		if (!solutions.containsKey(coin)) {
+			int total = 0;
+			// break it, and optimize the new coins
+			for ( int i=0; i < 3; i++ ){
+				total += optimize(coin / (i + 2)); 
+			}
+			solutions.put(coin, Math.max(total, coin));
 		}
-		// get the total value of the exchanged coins
-		int total = sum(newCoins);
-		// return the highest possible value
-		return Math.max(total, coin); 
-	}
 
-	// exchange a coin
-	public static int[] exchange(int coin) {
-		int[] newCoins = new int[3];
-		newCoins[0] = coin / 2;
-		newCoins[1] = coin / 3;
-		newCoins[2] = coin / 4;
-		return newCoins;
-	}
-
-	// get the total value of an array
-	public static int sum(int[] a) {
-		int sum = 0;
-		for (int i : a) {
-			sum += i;
-		}
-		return sum;
+		// return the solution for coin
+		return solutions.get(coin);
 	}
 }
