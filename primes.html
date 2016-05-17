@@ -1,0 +1,24 @@
+importPackage(java.io);
+importPackage(java.lang);
+
+var reader = new BufferedReader( new InputStreamReader( System['in'] ) );
+var line = reader.readLine().split(' ');
+
+start = line[0] || 0;
+stop = line[1] || 100;
+var range = [];
+for (var i=start;i<=stop;i++) {
+	if ( i%2 !== 0 && range.indexOf(Math.sqrt(i)) == -1 ) {
+		var prime = true;
+		for (var x=0;x<range.length;x++) {
+			if (i%range[x] === 0 && range[x] > 1 && range[x] !== i) {
+				prime = false;
+				break;
+			}
+		}
+		if (prime) {
+			range.push(i);
+			System.out.println(i);
+		}
+	}
+}
