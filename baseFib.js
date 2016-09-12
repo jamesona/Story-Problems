@@ -1,4 +1,7 @@
 'use strict'
+
+// https://www.reddit.com/r/dailyprogrammer/comments/5196fi/20160905_challenge_282_easy_unusual_bases/
+
 var convert = function(base, number) {
 	var getFib = function(count){
 		var fib = [1, 1, 1]
