@@ -1,0 +1,25 @@
+<script>
+	scrabble = function(letters, word) {
+		var available = letters.split(''),
+		at = 0,
+		possible = true
+
+		for (var i = 0; i < word.length; i++) {
+			var letter = word[i]
+
+			if (available.indexOf(letter) > -1)
+				at = available.indexOf(letter)
+			else if (available.indexOf('?') > -1)
+				at = available.indexOf('?')
+			else
+				possible = false
+
+			if (possible)
+				available.splice(at, 1)
+			else
+				break
+		}
+
+		return possible
+	}
+</script>
