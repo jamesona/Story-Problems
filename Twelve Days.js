@@ -3,8 +3,6 @@
 
 let days = [
 	{
-		day: 'zeroth', number: 'zero', gift: null,
-	},	{
 		day: 'first', number: 'and a', gift: 'Partridge in a Pear Tree',
 	},	{
 		day: 'second', number: 'two', gift: 'Turtle Doves',
@@ -31,12 +29,11 @@ let days = [
 	}
 ]
 
-for (let day = 1; day < days.length; day++){
-	let counter = day
+for (let day = 0; day < days.length; day++){
 	console.log('On the ' + days[day].day + ' day of Christmas\nmy true love gave to me:')
-	while (counter > 0) {
- 		let count = (day == 1 && counter == 1) ? 'a' : days[counter].number
- 		console.log(count + ' ' + days[counter--].gift)
+	for (let counter = day; counter > -1; counter--) {
+ 		let count = day ? days[counter].number : 'a'
+ 		console.log(count + ' ' + days[counter].gift)
 	}
 	console.log()
 }
